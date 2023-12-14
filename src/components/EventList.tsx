@@ -26,7 +26,7 @@ const EventList = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <h2 className="mb-4 text-[2rem]">Events</h2>
+      <h2 className="mb-4 text-[2rem]">Upcoming Events</h2>
       {eventList.map((event, index) => (
         <div className="flex flex-col">
           <span>Date: {event.date}</span>
