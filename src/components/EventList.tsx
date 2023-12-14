@@ -4,16 +4,24 @@ import { eventList } from "../seedData"
 
 const EventList = () => {
   const [viewMusicians, setViewMusicians] = useState<boolean>(false)
-  const [eventTargetIndex, setEventTargetIndex] = useState<null | number>(null)
+  const [eventTargetIndexArr, setEventTargetIndexArr] = useState<number[]>([])
 
-  const showHideMusicians = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ) => {
-    setEventTargetIndex(index)
-    console.log("e", e.target)
-    console.log("index", index)
-    viewMusicians ? setViewMusicians(false) : setViewMusicians(true)
+  const showHideMusicians = (index: number): void => {
+    if (eventTargetIndexArr.length === 0) {
+      setEventTargetIndexArr([...eventTargetIndexArr, index])
+      if (!viewMusicians) {
+        setViewMusicians(true)
+      }
+    }
+
+    if (!eventTargetIndexArr.includes(index)) {
+      setEventTargetIndexArr([...eventTargetIndexArr, index])
+    }
+
+    if (eventTargetIndexArr.includes(index)) {
+      let filteredArr = eventTargetIndexArr.filter((target) => target !== index)
+      setEventTargetIndexArr(filteredArr)
+    }
   }
 
   return (
@@ -25,14 +33,14 @@ const EventList = () => {
           <span>Location: {event.location}</span>
           <span>Pay: {event.pay}</span>
           <button
-            onClick={(e) => showHideMusicians(e, index)}
+            onClick={() => showHideMusicians(index)}
             className="border w-[8rem]"
           >
-            {viewMusicians && eventTargetIndex === index
+            {viewMusicians && eventTargetIndexArr?.includes(index)
               ? "Hide Musician List"
               : "View Musician List"}
           </button>
-          {viewMusicians && eventTargetIndex === index && (
+          {viewMusicians && eventTargetIndexArr?.includes(index) && (
             <div className="">
               {event.musicians.map((musician) => (
                 <div className="flex">
