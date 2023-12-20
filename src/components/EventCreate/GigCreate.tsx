@@ -7,7 +7,6 @@ import {
   Musician,
 } from "../../types/GigTypes"
 import {
-  addMusician,
   addInstrumentToArr,
   checkInstrumentation,
 } from "./utils/helpers"
@@ -23,9 +22,9 @@ const GigCreate = () => {
     selectedMusicians: [],
   })
 
-  useEffect(() => {
-    console.log("selectedMusicians", gigForm.selectedMusicians)
-  }, [gigForm.selectedMusicians])
+  // useEffect(() => {
+  //   console.log("selectedMusicians", gigForm.selectedMusicians)
+  // }, [gigForm.selectedMusicians])
 
   const addInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target
@@ -55,19 +54,25 @@ const GigCreate = () => {
   const handleSubmit: (e: any) => void = (e) => {
     e.preventDefault()
 
-    let areInstrumentsCovered = checkInstrumentation(
-      gigForm.instrumentation,
-      gigForm.selectedMusicians
-    )
+    let areInstrumentsCovered: boolean | (boolean | string[])[] =
+      checkInstrumentation(gigForm.instrumentation, gigForm.selectedMusicians)
 
-    if (areInstrumentsCovered) {
+    if (areInstrumentsCovered === true) {
       console.log("send data")
-      //do mutation
+      //do mutation, onSuccess, form submitted
+      console.log("Form submitted:", gigForm)
     } else {
-      //send modal to user
-    }
+      if (Array.isArray(areInstrumentsCovered[1])) {
+        let neededInstruments: string = areInstrumentsCovered[1]
+          .toString()
+          .split(",")
+          .join(", ")
 
-    console.log("Form submitted:", gigForm)
+        //send modal to user, tell them what instruments are needed
+
+        console.log(`Please make sure to add ${neededInstruments}`)
+      }
+    }
   }
 
   return (
@@ -117,9 +122,7 @@ const GigCreate = () => {
             </select>
           </label>
           <br />
-          {gigForm.instrumentation.length > 0 &&
-            <MusicianSelector/>
-            }
+          {gigForm.instrumentation.length > 0 && <MusicianSelector />}
 
           <br />
           <button className="border border-black w-24" type="submit">
