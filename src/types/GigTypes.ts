@@ -1,4 +1,4 @@
-export type Event = {
+export type Gig = {
   date: string
   location: string
   pay: string
@@ -11,7 +11,7 @@ export type Musician = {
   instrument: Instrument
 }
 
-export type EventForm = {
+export type GigForm = {
     clientName: string
     date: string
     startTime: string

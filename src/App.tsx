@@ -1,7 +1,7 @@
 
 import Nav from "./components/Nav"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import EventCreate from "./components/EventCreate/EventCreate"
+import GigCreate from "./components/EventCreate/GigCreate"
 import HomePage from "./components/HomePage/HomePage"
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" element={<HomePage/>}></Route>
-            <Route path="/create-event" element={<EventCreate />} />
+            <Route path="/create-event" element={<GigCreate />} />
           </Routes>
         </div>
       </Router>
