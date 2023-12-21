@@ -25,23 +25,26 @@ export const addMusician = (
     //modal - this musician is already on the gig!
     return "Duplicate"
   }
-  let isThisInstrumentPresent: (Instrument | "")[] = []
+  let isThisInstrumentPresent: Instrument | false = false
   if (form.selectedMusicians) {
-    isThisInstrumentPresent = form.selectedMusicians.map((musician) => {
-      if (musician.instrument === addedMusician.instrument) {
-        return musician.instrument
-      } else {
-        return ""
-      }
-    })
+    let result = form.selectedMusicians.find(
+      (musician) => musician.instrument === addedMusician.instrument
+    )
+
+    if (result) {
+      isThisInstrumentPresent = addedMusician.instrument
+    } else {
+      isThisInstrumentPresent = false
+    }
   }
 
-  if (isInstrument(isThisInstrumentPresent[0])) {
+  if (isInstrument(isThisInstrumentPresent)) {
     console.log(
       `confirmation modal - are you sure you want to add another ${addedMusician.instrument}?`
     )
-    return isThisInstrumentPresent[0]
+    return addedMusician
   } else {
+
     let arrPlusNew: Musician[] = [...form.selectedMusicians, addedMusician]
     console.log(`${addedMusician.name} (${addedMusician.instrument}) is added!`)
 
@@ -91,5 +94,21 @@ export const checkInstrumentation = (
     return true
   } else {
     return [false, neededInstruments]
+  }
+}
+
+export const addMusicianAfterConfirm = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  addedMusician: Musician,
+  form: GigForm
+) => {
+  const { value } = e.target
+  if (value === "no") {
+    return
+  } else {
+    let arrPlusNew: Musician[] = [...form.selectedMusicians, addedMusician]
+    console.log(`${addedMusician.name} (${addedMusician.instrument}) is added!`)
+
+    return arrPlusNew
   }
 }

@@ -111,13 +111,13 @@ const GigCreate = () => {
             <select
               className="border border-black"
               name="instrumentation"
-              value={gigForm.instrumentation}
+              // value={gigForm.instrumentation}
               // onChange={handleChange}
               onChange={(e) => addInstrument(e)}
             >
               <option value="">Select an instrument</option>
               {instruments.map((instrument) => (
-                <option value={instrument}>{instrument}</option>
+                <option key={`${instrument}-select`} value={instrument}>{instrument}</option>
               ))}
             </select>
           </label>
