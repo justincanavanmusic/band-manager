@@ -10,13 +10,15 @@ const DateTimePicker = () => {
   const handleDateChange = (date: Date) => {
     setGigForm({
       ...gigForm,
-      date
+      date,
     })
   }
 
   return (
     <div>
       <DatePicker
+        showTimeSelect
+        timeIntervals={15}
         selected={gigForm.date}
         onChange={(date) => {
           date instanceof Date && handleDateChange(date)

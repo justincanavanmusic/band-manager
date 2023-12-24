@@ -12,9 +12,9 @@ export type Musician = {
 }
 
 export type GigForm = {
-    clientName: string
+    // clientName: string
     date: Date
-    startTime: string
+    // startTime: string
     instrumentation: Instrument[]
     selectedMusicians: Musician[]
 }

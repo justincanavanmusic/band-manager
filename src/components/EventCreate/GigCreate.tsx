@@ -14,9 +14,9 @@ import { parseDate } from "./utils/parseDate"
 
 const GigCreate = () => {
   const [gigForm, setGigForm] = useState<GigForm>({
-    clientName: "",
+    // clientName: "",
     date: new Date(),
-    startTime: "",
+    // startTime: "",
     instrumentation: [],
     selectedMusicians: [],
   })
@@ -74,8 +74,6 @@ const GigCreate = () => {
     }
   }
 
-  console.log(parseDate(gigForm.date))
-
   return (
     <CreateGigContext.Provider
       value={{
@@ -114,8 +112,8 @@ const GigCreate = () => {
           </button>
           {/* User Selections */}
           <div className="flex flex-col mt-8">
-            <span>Date: {parseDate(gigForm.date)} </span>
-            <span>Start Time: {gigForm.startTime}</span>
+            <span>Date: {parseDate(gigForm.date).parsedDate} </span>
+            <span>Start Time: {parseDate(gigForm.date).parsedTime}</span>
             <span>
               Instrumentation:{" "}
               {gigForm.instrumentation.map((instrument: Instrument) => (
