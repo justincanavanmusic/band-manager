@@ -1,5 +1,5 @@
 export type Gig = {
-  date: string
+  date: Date
   location: string
   pay: string
   musicians: Musician[]
@@ -13,7 +13,7 @@ export type Musician = {
 
 export type GigForm = {
     clientName: string
-    date: string
+    date: Date
     startTime: string
     instrumentation: Instrument[]
     selectedMusicians: Musician[]

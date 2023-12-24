@@ -3,8 +3,8 @@ import { musicians } from "../../../seedData"
 import type { Musician } from "../../../types/GigTypes"
 import { addMusician } from "../utils/helpers"
 import { CreateGigContext } from "../context/CreateGigContext"
-import { Instrument } from "../../../types/GigTypes"
-import { isInstrument, isMusician } from "../utils/typeGuards"
+
+import { isMusician } from "../utils/typeGuards"
 import { addMusicianAfterConfirm } from "../utils/helpers"
 
 const MusicianSelector = () => {
@@ -49,43 +49,47 @@ const MusicianSelector = () => {
     }
   }
 
-  return gigForm.instrumentation.map((instrument) => (
+  return (
     <div>
-      <label>Add {instrument}</label>
-      <select
-        className="border border-black"
-        onChange={(e) => handleAddMusician(e)}
-      >
-        {" "}
-        <option>Select {instrument}</option>
-        {musicians.map(
-          (musician, index) =>
-            musician.instrument === instrument && (
-              <option key={index} value={musician.name}>
-                {musician.name}
-              </option>
-            )
-        )}
-      </select>
-      {addDuplicateModal && (
+      {gigForm.instrumentation.map((instrument) => (
         <div>
-          <label htmlFor="yes">Yes</label>
-          <input
-            onChange={(e) => handleAddMusicianAfterConfirm(e)}
-            type="radio"
-            name="yes"
-            value="yes"
-          />
-          <label htmlFor="no">No</label>
-          <input
-            onChange={(e) => handleAddMusicianAfterConfirm(e)}
-            type="radio"
-            name="no"
-            value="no"
-          />
+          <label>Add {instrument}</label>
+          <select
+            className="border border-black"
+            onChange={(e) => handleAddMusician(e)}
+          >
+            {" "}
+            <option>Select {instrument}</option>
+            {musicians.map(
+              (musician, index) =>
+                musician.instrument === instrument && (
+                  <option key={index} value={musician.name}>
+                    {musician.name}
+                  </option>
+                )
+            )}
+          </select>
         </div>
-      )}
+      ))}
+     {addDuplicateModal && (
+  <div>
+    <label htmlFor="yes">Yes</label>
+    <input
+      onChange={(e) => handleAddMusicianAfterConfirm(e)}
+      type="radio"
+      name="yes"
+      value="yes"
+    />
+    <label htmlFor="no">No</label>
+    <input
+      onChange={(e) => handleAddMusicianAfterConfirm(e)}
+      type="radio"
+      name="no"
+      value="no"
+    />
+  </div>
+)}
     </div>
-  ))
+  )
 }
 export default MusicianSelector

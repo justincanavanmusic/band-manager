@@ -6,25 +6,24 @@ import {
   Instrument,
   Musician,
 } from "../../types/GigTypes"
-import {
-  addInstrumentToArr,
-  checkInstrumentation,
-} from "./utils/helpers"
+import { addInstrumentToArr, checkInstrumentation } from "./utils/helpers"
 import { CreateGigContext } from "./context/CreateGigContext"
 import MusicianSelector from "./components/MusicianSelector"
+import DateSelector from "./components/DateSelector"
+import { parseDate } from "./utils/parseDate"
 
 const GigCreate = () => {
   const [gigForm, setGigForm] = useState<GigForm>({
     clientName: "",
-    date: "",
+    date: new Date(),
     startTime: "",
     instrumentation: [],
     selectedMusicians: [],
   })
 
-  // useEffect(() => {
-  //   console.log("selectedMusicians", gigForm.selectedMusicians)
-  // }, [gigForm.selectedMusicians])
+  useEffect(() => {
+    console.log("gigForm", gigForm)
+  }, [gigForm])
 
   const addInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target
@@ -75,37 +74,20 @@ const GigCreate = () => {
     }
   }
 
+  console.log(parseDate(gigForm.date))
+
   return (
     <CreateGigContext.Provider
       value={{
         gigForm,
         setGigForm,
+        handleChange,
       }}
     >
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col">
-          <label>
-            Date:
-            <input
-              className="border border-black"
-              type="text"
-              name="date"
-              value={gigForm.date}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Start Time:
-            <input
-              className="border border-black"
-              type="text"
-              name="startTime"
-              value={gigForm.startTime}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
+          <DateSelector />
+
           <label>
             Instrumentation:
             <select
@@ -117,7 +99,9 @@ const GigCreate = () => {
             >
               <option value="">Select an instrument</option>
               {instruments.map((instrument) => (
-                <option key={`${instrument}-select`} value={instrument}>{instrument}</option>
+                <option key={`${instrument}-select`} value={instrument}>
+                  {instrument}
+                </option>
               ))}
             </select>
           </label>
@@ -130,7 +114,7 @@ const GigCreate = () => {
           </button>
           {/* User Selections */}
           <div className="flex flex-col mt-8">
-            <span>Date: {gigForm.date}</span>
+            <span>Date: {parseDate(gigForm.date)} </span>
             <span>Start Time: {gigForm.startTime}</span>
             <span>
               Instrumentation:{" "}
