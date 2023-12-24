@@ -9,14 +9,26 @@ export type Gig = {
 export type Musician = {
   name: string
   instrument: Instrument
+  phoneNumber: string
+  email: string
 }
 
+// type Location = {
+//   address: "",
+//   city: "",
+//   state: "",
+//   zipCode: "",
+
+// }
+
 export type GigForm = {
-    // clientName: string
-    date: Date
-    // startTime: string
-    instrumentation: Instrument[]
-    selectedMusicians: Musician[]
+  name: string
+  // date: Date
+  startTime: Date
+  endTime: Date
+  location: string
+  instrumentation: Instrument[]
+  selectedMusicians: Musician[]
 }
 
 export type Instrument =
@@ -30,12 +42,12 @@ export type Instrument =
   | "Vocals"
 
 export const instruments: Instrument[] = [
-    "Guitar",
-    "Bass",
-    "Keyboards",
-    "Drums",
-    "Saxophone",
-    "Trumpet",
-    "Trombone",
-    "Vocals",
-  ];
+  "Guitar",
+  "Bass",
+  "Keyboards",
+  "Drums",
+  "Saxophone",
+  "Trumpet",
+  "Trombone",
+  "Vocals",
+]

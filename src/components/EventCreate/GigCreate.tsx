@@ -1,22 +1,21 @@
 import { useState, useEffect } from "react"
-import { musicians } from "../../seedData"
-import {
-  instruments,
-  GigForm,
-  Instrument,
-  Musician,
-} from "../../types/GigTypes"
-import { addInstrumentToArr, checkInstrumentation } from "./utils/helpers"
+
+import { GigForm } from "../../types/GigTypes"
+import { checkInstrumentation } from "./utils/helpers"
 import { CreateGigContext } from "./context/CreateGigContext"
 import MusicianSelector from "./components/MusicianSelector"
 import DateSelector from "./components/DateSelector"
-import { parseDate } from "./utils/parseDate"
+import IcsInvite from "../IcsInvite/IcsInvite"
+import GigInfo from "./components/GigInfo"
+import InstrumentSelector from "./components/InstrumentSelector"
+import EventLocationInput from "./components/EventLocationInput"
 
 const GigCreate = () => {
   const [gigForm, setGigForm] = useState<GigForm>({
-    // clientName: "",
-    date: new Date(),
-    // startTime: "",
+    name: "",
+    location: "",
+    startTime: new Date(),
+    endTime: new Date(),
     instrumentation: [],
     selectedMusicians: [],
   })
@@ -24,23 +23,6 @@ const GigCreate = () => {
   useEffect(() => {
     console.log("gigForm", gigForm)
   }, [gigForm])
-
-  const addInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target
-    const newValue = value as Instrument
-
-    if (gigForm.instrumentation.includes(newValue)) {
-      return
-      //modal if instrument is already included
-    }
-
-    let newInstArr: Instrument[] = addInstrumentToArr(
-      newValue,
-      gigForm.instrumentation
-    )
-
-    setGigForm({ ...gigForm, instrumentation: newInstArr })
-  }
 
   const handleChange: (e: any) => void = (e) => {
     const { name, value } = e.target
@@ -84,25 +66,9 @@ const GigCreate = () => {
     >
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col">
+          <EventLocationInput />
           <DateSelector />
-
-          <label>
-            Instrumentation:
-            <select
-              className="border border-black"
-              name="instrumentation"
-              // value={gigForm.instrumentation}
-              // onChange={handleChange}
-              onChange={(e) => addInstrument(e)}
-            >
-              <option value="">Select an instrument</option>
-              {instruments.map((instrument) => (
-                <option key={`${instrument}-select`} value={instrument}>
-                  {instrument}
-                </option>
-              ))}
-            </select>
-          </label>
+          <InstrumentSelector />
           <br />
           {gigForm.instrumentation.length > 0 && <MusicianSelector />}
 
@@ -110,26 +76,8 @@ const GigCreate = () => {
           <button className="border border-black w-24" type="submit">
             Submit
           </button>
-          {/* User Selections */}
-          <div className="flex flex-col mt-8">
-            <span>Date: {parseDate(gigForm.date).parsedDate} </span>
-            <span>Start Time: {parseDate(gigForm.date).parsedTime}</span>
-            <span>
-              Instrumentation:{" "}
-              {gigForm.instrumentation.map((instrument: Instrument) => (
-                <span className="">{instrument} - </span>
-              ))}
-            </span>
-            <span>
-              Musicians:{" "}
-              {gigForm.selectedMusicians.map((musician: Musician) => (
-                <div>
-                  <span className="">{musician.name} - </span>
-                  <span className="">{musician.instrument} - </span>
-                </div>
-              ))}
-            </span>
-          </div>
+          <GigInfo />
+          <IcsInvite />
         </div>
       </form>
     </CreateGigContext.Provider>
