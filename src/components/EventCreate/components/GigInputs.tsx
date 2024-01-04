@@ -24,6 +24,15 @@ const EventLocationInput = () => {
           name="location"
         ></input>
       </label>
+      <label>
+        Pay:
+        <input
+          className="border"
+          type="number"
+          onChange={(e) => handleChange(e)}
+          name="payPerPerson"
+        ></input>
+      </label>
     </>
   )
 }

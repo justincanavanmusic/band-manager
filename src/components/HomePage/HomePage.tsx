@@ -1,4 +1,4 @@
-import EventList from "../EventList"
+import EventList from "../GigList"
 
 const HomePage = () => {
   return (

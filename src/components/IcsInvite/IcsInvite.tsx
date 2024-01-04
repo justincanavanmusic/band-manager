@@ -11,14 +11,17 @@ const IcsInvite = () => {
 
   return (
     <AddToCalendarButton
+    //location
       name={gigForm.name}
-      options={["Apple", "Google"]}
+      // organizer="Justin Canavan|justincanavanmusic@gmail.com"
+      options={["Apple", "Google", 'iCal','Outlook.com','Yahoo']}
       location={gigForm.location}
       startDate={parsedStartForCal}
       endDate={parsedEndForCal}
       startTime={parseDate(gigForm.startTime).parsedTimeForCal}
       endTime={parseDate(gigForm.endTime).parsedTimeForCal}
       timeZone="America/Chicago"
+
     ></AddToCalendarButton>
   )
 }

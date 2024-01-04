@@ -31,15 +31,12 @@ const MusicianSelector = () => {
   const handleAddMusicianAfterConfirm = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log("musicianToAdd", musicianToAdd)
 
     let result: Musician[] | undefined = addMusicianAfterConfirm(
       e,
       musicianToAdd,
       gigForm
     )
-
-    console.log("result", result)
 
     if (Array.isArray(result) && isMusician(result[0])) {
       setGigForm({ ...gigForm, selectedMusicians: result })
@@ -72,7 +69,8 @@ const MusicianSelector = () => {
         </div>
       ))}
      {addDuplicateModal && (
-  <div>
+  <div className="border border-black">
+    <p>Are you sure you want to add another {musicianToAdd.instrument}?</p>
     <label htmlFor="yes">Yes</label>
     <input
       onChange={(e) => handleAddMusicianAfterConfirm(e)}

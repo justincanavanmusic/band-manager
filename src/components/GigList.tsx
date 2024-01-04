@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { musicians } from "../seedData"
-import { eventList } from "../seedData"
+import { gigList } from "../seedData"
+import { parseDate } from "./EventCreate/utils/dateTime"
 
 const EventList = () => {
   const [viewMusicians, setViewMusicians] = useState<boolean>(false)
@@ -27,11 +27,11 @@ const EventList = () => {
   return (
     <div className="flex flex-col gap-8">
       <h2 className="mb-4 text-[2rem]">Upcoming Events</h2>
-      {eventList.map((event, index) => (
+      {gigList.map((gig, index) => (
         <div className="flex flex-col">
-          <span>Date: {event.date}</span>
-          <span>Location: {event.location}</span>
-          <span>Pay: {event.pay}</span>
+          <span>Date: {parseDate(gig.startTime).parsedDate}</span>
+          <span>Location: {gig.location}</span>
+          <span>Pay: {gig.payPerPerson}</span>
           <button
             onClick={() => showHideMusicians(index)}
             className="border w-[8rem]"
@@ -42,7 +42,7 @@ const EventList = () => {
           </button>
           {viewMusicians && eventTargetIndexArr?.includes(index) && (
             <div className="">
-              {event.musicians.map((musician) => (
+              {gig.selectedMusicians.map((musician) => (
                 <div className="flex">
                   <p>{musician.name}</p>
                   <p>{musician.instrument}</p>

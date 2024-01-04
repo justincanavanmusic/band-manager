@@ -51,57 +51,65 @@ export const musicians: Musician[] = [
   { name: "Nathan Taylor", instrument: "Bass", phoneNumber: "789-012-3456", email: "nathan.taylor@example.com" },
 ];
 
-export const eventList: Gig[] = [
+export const gigList: Gig[] = [
   {
-    date: new Date("2024-04-14T18:30:00"),
+    name: "Concert at Concert Hall A",
+    startTime: new Date("2024-04-14T18:30:00"),
+    endTime: new Date("2024-04-14T23:59:59"),
     location: "Concert Hall A",
-    pay: "$1000",
-    musicians: [
+    instrumentation: ["Guitar", "Keyboards", "Saxophone", "Bass", "Trombone"],
+    selectedMusicians: [
       musicians[0],
       musicians[1],
       musicians[2],
       musicians[4],
       musicians[8],
     ],
-    instruments: ["Guitar", "Keyboards", "Saxophone", "Bass", "Trombone"],
+    payPerPerson: "$200",
   },
   {
-    date: new Date("2024-02-22T20:00:00"),
+    name: "Jazz Night at Jazz Club B",
+    startTime: new Date("2024-02-22T20:00:00"),
+    endTime: new Date("2024-02-22T23:59:59"),
     location: "Jazz Club B",
-    pay: "$800",
-    musicians: [
+    instrumentation: ["Drums", "Bass", "Trumpet", "Keyboards", "Vocals"],
+    selectedMusicians: [
       musicians[3],
       musicians[4],
       musicians[5],
       musicians[7],
       musicians[9],
     ],
-    instruments: ["Drums", "Bass", "Trumpet", "Keyboards", "Vocals"],
+    payPerPerson: "$160",
   },
   {
-    date: new Date("2024-03-10T19:15:00"),
+    name: "Community Jam at Community Center C",
+    startTime: new Date("2024-03-10T19:15:00"),
+    endTime: new Date("2024-03-10T23:59:59"),
     location: "Community Center C",
-    pay: "$1200",
-    musicians: [
+    instrumentation: ["Guitar", "Keyboards", "Saxophone", "Drums", "Trumpet"],
+    selectedMusicians: [
       musicians[6],
       musicians[7],
       musicians[2],
       musicians[3],
       musicians[5],
     ],
-    instruments: ["Guitar", "Keyboards", "Saxophone", "Drums", "Trumpet"],
+    payPerPerson: "$240",
   },
   {
-    date: new Date("2024-04-05T21:00:00"),
+    name: "Outdoor Festival at Festival D",
+    startTime: new Date("2024-04-05T21:00:00"),
+    endTime: new Date("2024-04-05T23:59:59"),
     location: "Outdoor Festival D",
-    pay: "$1500",
-    musicians: [
+    instrumentation: ["Trombone", "Vocals", "Keyboards", "Drums", "Bass"],
+    selectedMusicians: [
       musicians[8],
       musicians[9],
       musicians[1],
       musicians[3],
       musicians[4],
     ],
-    instruments: ["Trombone", "Vocals", "Keyboards", "Drums", "Bass"],
+    payPerPerson: "$300",
   },
 ];

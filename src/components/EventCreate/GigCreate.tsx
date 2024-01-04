@@ -8,7 +8,7 @@ import DateSelector from "./components/DateSelector"
 import IcsInvite from "../IcsInvite/IcsInvite"
 import GigInfo from "./components/GigInfo"
 import InstrumentSelector from "./components/InstrumentSelector"
-import EventLocationInput from "./components/EventLocationInput"
+import EventLocationInput from "./components/GigInputs"
 
 const GigCreate = () => {
   const [gigForm, setGigForm] = useState<GigForm>({
@@ -18,6 +18,7 @@ const GigCreate = () => {
     endTime: new Date(),
     instrumentation: [],
     selectedMusicians: [],
+    payPerPerson: ""
   })
 
   useEffect(() => {

@@ -4,7 +4,28 @@ import { areDatesTheSame, parseDate } from "../utils/dateTime"
 import type { Instrument, Musician } from "../../../types/GigTypes"
 
 const GigInfo = () => {
-  const { gigForm } = useContext(CreateGigContext)
+  const { gigForm, setGigForm } = useContext(CreateGigContext)
+
+  const removeMusician = (selectedMusician: Musician) => {
+    let filteredMusicians = gigForm.selectedMusicians.filter(
+      (musician) => musician !== selectedMusician
+    )
+
+    setGigForm({
+      ...gigForm,
+      selectedMusicians: filteredMusicians,
+    })
+  }
+
+  const removeInstrument = (selectedInstrument: Instrument) => {
+    let filteredInstruments = gigForm.instrumentation.filter(
+      (instrument) => selectedInstrument !== instrument
+    )
+    setGigForm({
+      ...gigForm,
+      instrumentation: filteredInstruments,
+    })
+  }
 
   return (
     <div className="flex flex-col mt-8">
@@ -27,7 +48,10 @@ const GigInfo = () => {
       <span>
         Instrumentation:{" "}
         {gigForm.instrumentation.map((instrument: Instrument) => (
-          <span className="">{instrument} - </span>
+          <div>
+            <span className="">{instrument} - </span>
+            <button onClick={() => removeInstrument(instrument)}>X</button>
+          </div>
         ))}
       </span>
       <span>
@@ -36,6 +60,7 @@ const GigInfo = () => {
           <div>
             <span className="">{musician.name} - </span>
             <span className="">{musician.instrument} - </span>
+            <button onClick={() => removeMusician(musician)}>X</button>
           </div>
         ))}
       </span>
