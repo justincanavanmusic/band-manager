@@ -3,7 +3,7 @@ import { musicians } from "../../../seedData"
 import { isInstrument } from "./typeGuards"
 
 export const addInstrumentToArr = (eTarget: Instrument, arr: Instrument[]) => {
-  let arrPlusNew: Instrument[] = [...arr, eTarget]
+  const arrPlusNew: Instrument[] = [...arr, eTarget]
 
   return arrPlusNew
 }
@@ -13,11 +13,11 @@ export const addMusician = (
   form: GigForm
 ) => {
   const { value } = e.target
-  let result: Musician[] = musicians.filter(
+  const result: Musician[] = musicians.filter(
     (musician) => musician.name === value
   )
 
-  let addedMusician: Musician = result[0]
+  const addedMusician: Musician = result[0]
 
   if (form.selectedMusicians.includes(addedMusician)) {
     console.log("modal - this musician is already on the gig!")
@@ -27,7 +27,7 @@ export const addMusician = (
   }
   let isThisInstrumentPresent: Instrument | false = false
   if (form.selectedMusicians) {
-    let result = form.selectedMusicians.find(
+    const result = form.selectedMusicians.find(
       (musician) => musician.instrument === addedMusician.instrument
     )
 
@@ -45,7 +45,7 @@ export const addMusician = (
     return addedMusician
   } else {
 
-    let arrPlusNew: Musician[] = [...form.selectedMusicians, addedMusician]
+    const arrPlusNew: Musician[] = [...form.selectedMusicians, addedMusician]
     console.log(`${addedMusician.name} (${addedMusician.instrument}) is added!`)
 
     return arrPlusNew
@@ -65,7 +65,7 @@ export const checkInstrumentation = (
   for (let i = 0; i < instruments.length; i++) {
     for (let j = 0; j < musicians.length; j++) {
       if (instruments[i].includes(musicians[j].instrument)) {
-        let instrumentKey = instruments[i].toLowerCase()
+        const instrumentKey = instruments[i].toLowerCase()
         instrumentObj[instrumentKey] = musicians[j].name
       } else {
         null
@@ -73,15 +73,15 @@ export const checkInstrumentation = (
     }
   }
 
-  let values = Object.values(instrumentObj)
-  let instArr = Object.entries(instrumentObj)
-  let result = values.filter((value) => value !== null)
+  const values = Object.values(instrumentObj)
+  const instArr = Object.entries(instrumentObj)
+  const result = values.filter((value) => value !== null)
 
-  let neededInstruments: string[] = []
+  const neededInstruments: string[] = []
 
   instArr.map((inst) => {
-    let key = inst[0]
-    let value = inst[1]
+    const key = inst[0]
+    const value = inst[1]
 
     if (value === null) {
       neededInstruments.push(key)
@@ -106,7 +106,7 @@ export const addMusicianAfterConfirm = (
   if (value === "no") {
     return
   } else {
-    let arrPlusNew: Musician[] = [...form.selectedMusicians, addedMusician]
+    const arrPlusNew: Musician[] = [...form.selectedMusicians, addedMusician]
     console.log(`${addedMusician.name} (${addedMusician.instrument}) is added!`)
 
     return arrPlusNew

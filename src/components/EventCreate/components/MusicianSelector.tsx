@@ -6,6 +6,7 @@ import { CreateGigContext } from "../context/CreateGigContext"
 import { isMusician } from "../utils/typeGuards"
 import { addMusicianAfterConfirm } from "../utils/helpers"
 import toast, { Toaster } from "react-hot-toast"
+import { ConfirmationDialog } from "../../ConfirmationDialog/ConfirmationDialog"
 
 const MusicianSelector = () => {
   const { gigForm, setGigForm } = useContext(CreateGigContext)
@@ -27,7 +28,6 @@ const MusicianSelector = () => {
     }
 
     if (Array.isArray(result) && isMusician(result[0])) {
-      console.log("result", result)
       setGigForm({ ...gigForm, selectedMusicians: result })
       if (addedMusician) {
         toast.success(
@@ -52,7 +52,9 @@ const MusicianSelector = () => {
     } else {
       setAddDuplicateModal(false)
     }
+
     const addedMusician = findAddedMusician(musicianToAdd.name)
+
     if (addedMusician) {
       if (e.target.value === "yes") {
         toast.success(
@@ -91,27 +93,14 @@ const MusicianSelector = () => {
         </div>
       ))}
       <Toaster />
-      {addDuplicateModal && (
-        <div className="border border-black">
-          <p>
-            Are you sure you want to add another {musicianToAdd.instrument}?
-          </p>
-          <label htmlFor="yes">Yes</label>
-          <input
-            onChange={(e) => handleAddMusicianAfterConfirm(e)}
-            type="radio"
-            name="yes"
-            value="yes"
-          />
-          <label htmlFor="no">No</label>
-          <input
-            onChange={(e) => handleAddMusicianAfterConfirm(e)}
-            type="radio"
-            name="no"
-            value="no"
-          />
-        </div>
-      )}
+      <ConfirmationDialog
+        message={`Are you sure you want to add another ${musicianToAdd.instrument}?`}
+        boolState={addDuplicateModal}
+        setBoolFalse={() => setAddDuplicateModal(false)}
+        action={(e: React.ChangeEvent<HTMLInputElement> | undefined) => {
+          e && handleAddMusicianAfterConfirm(e)
+        }}
+      />
     </div>
   )
 }
