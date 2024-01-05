@@ -1,4 +1,5 @@
 import { DateTime } from "luxon"
+import type { Gig } from "../../../types/GigTypes"
 
 const addZeroToHour = (hour: number) => {
   if (hour < 10) {
@@ -6,6 +7,17 @@ const addZeroToHour = (hour: number) => {
   } else {
     return hour
   }
+}
+
+export const sortObjByDate = <T extends Gig> (obj: T[]) => {
+  return obj.sort(
+    (a: T, b: T) =>
+      new Date(a.endTime).getTime() - new Date(b.endTime).getTime()
+  )
+}
+
+export const hasDateHappened = (date: Date) => {
+  return date < new Date()
 }
 
 export const compareTimes = (startTime: Date, endTime: Date) => {
@@ -21,13 +33,13 @@ export const compareTimes = (startTime: Date, endTime: Date) => {
 const parseHour = (hour: number) => {
   if (hour > 12) {
     hour = hour - 12
-    let isThereZero = addZeroToHour(hour)
+    const isThereZero = addZeroToHour(hour)
     return isThereZero
   } else {
     if (hour === 0) {
       return "12"
     }
-    let isThereZero = addZeroToHour(hour)
+    const isThereZero = addZeroToHour(hour)
     return isThereZero
   }
 }
@@ -49,25 +61,25 @@ const getAmOrPm = (hour: number) => {
 }
 
 export const parseDate = (date: Date) => {
-  let luxonDateTime = DateTime.fromJSDate(date)
-  let dateTimeCST = luxonDateTime.setZone("America/Chicago")
-  let dayOfWeek = dateTimeCST.weekdayLong
-  let hour = dateTimeCST.hour
-  let minute = dateTimeCST.minute
-  let timeZone = dateTimeCST.offsetNameShort
-  let year = dateTimeCST.year
-  let month = dateTimeCST.month
-  let day = dateTimeCST.day
+  const luxonDateTime = DateTime.fromJSDate(date)
+  const dateTimeCST = luxonDateTime.setZone("America/Chicago")
+  const dayOfWeek = dateTimeCST.weekdayLong
+  const hour = dateTimeCST.hour
+  const minute = dateTimeCST.minute
+  const timeZone = dateTimeCST.offsetNameShort
+  const year = dateTimeCST.year
+  const month = dateTimeCST.month
+  const day = dateTimeCST.day
 
-  let amOrPm = getAmOrPm(hour)
+  const amOrPm = getAmOrPm(hour)
 
-  let parsedTime =
+  const parsedTime =
     parseHour(hour) + ":" + parseMinute(minute) + " " + amOrPm + ", " + timeZone
 
-  let parsedDate = dayOfWeek + ", " + dateTimeCST.toLocaleString()
+  const parsedDate = dayOfWeek + ", " + dateTimeCST.toLocaleString()
 
-  let parsedTimeForCal = parseHour(hour) + ":" + parseMinute(minute)
-  let parsedDateForCal = `${year}-${parseMinute(month)}-${parseMinute(day)}`
+  const parsedTimeForCal = parseHour(hour) + ":" + parseMinute(minute)
+  const parsedDateForCal = `${year}-${parseMinute(month)}-${parseMinute(day)}`
 
   return { parsedDate, parsedTime, parsedTimeForCal, parsedDateForCal }
 }

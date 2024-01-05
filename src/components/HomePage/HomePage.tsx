@@ -1,9 +1,9 @@
-import EventList from "../GigList"
+import GigList from "../GigList"
 
 const HomePage = () => {
   return (
     <div>
-      <EventList />
+      <GigList />
     </div>
   )
 }

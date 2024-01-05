@@ -25,7 +25,7 @@ const GigCreate = () => {
     console.log("gigForm", gigForm)
   }, [gigForm])
 
-  const handleChange: (e: any) => void = (e) => {
+  const handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
     const { name, value } = e.target
     setGigForm((prevFormData: GigForm) => ({
       ...prevFormData,
@@ -33,10 +33,10 @@ const GigCreate = () => {
     }))
   }
 
-  const handleSubmit: (e: any) => void = (e) => {
+  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = (e) => {
     e.preventDefault()
 
-    let areInstrumentsCovered: boolean | (boolean | string[])[] =
+    const areInstrumentsCovered: boolean | (boolean | string[])[] =
       checkInstrumentation(gigForm.instrumentation, gigForm.selectedMusicians)
 
     if (areInstrumentsCovered === true) {
@@ -45,7 +45,7 @@ const GigCreate = () => {
       console.log("Form submitted:", gigForm)
     } else {
       if (Array.isArray(areInstrumentsCovered[1])) {
-        let neededInstruments: string = areInstrumentsCovered[1]
+        const neededInstruments: string = areInstrumentsCovered[1]
           .toString()
           .split(",")
           .join(", ")
@@ -65,7 +65,7 @@ const GigCreate = () => {
         handleChange,
       }}
     >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e)=>handleSubmit(e)}>
         <div className="flex flex-col">
           <EventLocationInput />
           <DateSelector />

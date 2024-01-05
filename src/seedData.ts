@@ -53,6 +53,21 @@ export const musicians: Musician[] = [
 
 export const gigList: Gig[] = [
   {
+    name: "Blues Jam at Blues Lounge E",
+    startTime: new Date("2024-01-03T19:30:00"),
+    endTime: new Date("2024-01-03T23:59:59"),
+    location: "Blues Lounge E",
+    instrumentation: ["Guitar", "Bass", "Drums", "Vocals"],
+    selectedMusicians: [
+      musicians[0],
+      musicians[2],
+      musicians[7],
+      musicians[5],
+      musicians[9],
+    ],
+    payPerPerson: "$180",
+  },
+  {
     name: "Concert at Concert Hall A",
     startTime: new Date("2024-04-14T18:30:00"),
     endTime: new Date("2024-04-14T23:59:59"),
@@ -112,4 +127,5 @@ export const gigList: Gig[] = [
     ],
     payPerPerson: "$300",
   },
+
 ];

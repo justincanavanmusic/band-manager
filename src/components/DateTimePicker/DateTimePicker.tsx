@@ -33,6 +33,9 @@ const DateTimePicker: React.FC<DateTimeProps> = ({ index }) => {
             ? "border border-green-500"
             : "border border-red-500"
         }
+        minDate={
+          index === 0 ? new Date() : gigForm.startTime
+        }
         showIcon
         showTimeSelect
         timeIntervals={15}

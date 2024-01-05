@@ -9,7 +9,9 @@ const DateSelector = () => {
         <label>
           {selection}
 
-          <DateTimePicker index={index} />
+          <DateTimePicker
+            index={index}
+          />
         </label>
       ))}
 

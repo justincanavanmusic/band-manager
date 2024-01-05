@@ -2,12 +2,14 @@ import { useContext } from "react"
 import { CreateGigContext } from "../context/CreateGigContext"
 import { areDatesTheSame, parseDate } from "../utils/dateTime"
 import type { Instrument, Musician } from "../../../types/GigTypes"
+import toast, {Toaster} from "react-hot-toast"
+
 
 const GigInfo = () => {
   const { gigForm, setGigForm } = useContext(CreateGigContext)
 
   const removeMusician = (selectedMusician: Musician) => {
-    let filteredMusicians = gigForm.selectedMusicians.filter(
+    const filteredMusicians = gigForm.selectedMusicians.filter(
       (musician) => musician !== selectedMusician
     )
 
@@ -15,17 +17,32 @@ const GigInfo = () => {
       ...gigForm,
       selectedMusicians: filteredMusicians,
     })
+
+    toast.error(
+      `${selectedMusician.name} (${selectedMusician.instrument}) was removed from the gig!`
+    )
   }
 
   const removeInstrument = (selectedInstrument: Instrument) => {
-    let filteredInstruments = gigForm.instrumentation.filter(
+    const filteredInstruments = gigForm.instrumentation.filter(
       (instrument) => selectedInstrument !== instrument
     )
+
+    const filteredMusicians = gigForm.selectedMusicians.filter((musician)=> musician.instrument !== selectedInstrument )
+
     setGigForm({
       ...gigForm,
       instrumentation: filteredInstruments,
+      selectedMusicians: filteredMusicians
     })
+
+
+    toast.error(
+      ` ${selectedInstrument} was removed from the gig!`
+    )
+
   }
+
 
   return (
     <div className="flex flex-col mt-8">
@@ -54,6 +71,7 @@ const GigInfo = () => {
           </div>
         ))}
       </span>
+      <br></br>
       <span>
         Musicians:{" "}
         {gigForm.selectedMusicians.map((musician: Musician) => (
@@ -64,7 +82,9 @@ const GigInfo = () => {
           </div>
         ))}
       </span>
+      <Toaster />
     </div>
   )
+  
 }
 export default GigInfo

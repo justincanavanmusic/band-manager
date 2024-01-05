@@ -1,11 +1,3 @@
-// export type Gig = {
-//   date: Date
-//   location: string
-//   pay: string
-//   musicians: Musician[]
-//   instruments: Instrument[]
-// }
-
 export type Gig = {
   name: string
   // date: Date

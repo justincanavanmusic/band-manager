@@ -16,7 +16,7 @@ const InstrumentSelector = () => {
       //modal if instrument is already included
     }
 
-    let newInstArr: Instrument[] = addInstrumentToArr(
+    const newInstArr: Instrument[] = addInstrumentToArr(
       newValue,
       gigForm.instrumentation
     )
